@@ -1,17 +1,18 @@
 <template>
   <div class="home">
-    HomePage
-
+    <Header></Header>
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Button from "@/components/Button.vue";
+import Header from "@/components/Header.vue";
 
 @Options({
   components: {
-    Button
+    Button,
+    Header
   }
 })
 export default class HomePage extends Vue {}
