@@ -1,0 +1,25 @@
+@import 'vendor/reset';
+
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  background: $radialGradient no-repeat;
+  color: #fff;
+}
+
+.container {
+  max-width: 1016px;
+  margin: auto;
+}
