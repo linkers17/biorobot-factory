@@ -25,7 +25,7 @@
                 <h1 class="title">Фабрика по производству биороботов</h1>
                 <span class="header__subtitle">класса «монитор-кресло»</span>
             </div>
-            <img src="../../public/images/header-image.png" alt="header-logo" class="header__image">
+            <img src="@/assets/img/header-image.png" alt="header-logo" class="header__image">
         </div>
     </header>
 </template>
@@ -83,6 +83,10 @@
             font-size: 2.4rem;
             line-height: 1.25;
             font-weight: 600;
+        }
+
+        &__image {
+            margin-left: 5rem;
         }
     }
 </style>
