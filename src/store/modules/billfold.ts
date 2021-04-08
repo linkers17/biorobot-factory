@@ -21,6 +21,18 @@ const mutations = {
     },
     changeCheckbox(state: BillfoldStateInterface) {
         state.checkbox = !state.checkbox;
+    },
+
+    expense(state: BillfoldStateInterface, coin: number) {
+        state.money -= coin;
+    },
+
+    income(state: BillfoldStateInterface, coin: number) {
+        state.money += coin;
+    },
+
+    showError(state: BillfoldStateInterface, text: string) {
+        state.error = text;
     }
 }
 

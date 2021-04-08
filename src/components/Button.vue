@@ -2,6 +2,7 @@
     <div>
         <button
                 class="btn"
+                @click="$emit(action, id)"
                 :disabled="disabled"
                 v-bind:class="{
             btn_primary: type === 'primary',
@@ -26,7 +27,9 @@
                 type: String,
                 required: true
             },
-            disabled: Boolean
+            disabled: Boolean,
+            id: Number,
+            action: String
         }
     })
     export default class Button extends Vue {}

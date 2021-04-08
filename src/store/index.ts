@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import * as billfold from '@/store/modules/billfold';
+import * as stock from '@/store/modules/stock';
 
 export default createStore({
   state: {
@@ -9,6 +10,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    billfold
+    billfold,
+    stock
   }
 })
