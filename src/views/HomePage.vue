@@ -2,6 +2,7 @@
   <div class="home">
     <Header></Header>
     <Billfold></Billfold>
+    <Market></Market>
   </div>
 </template>
 
@@ -10,12 +11,14 @@ import { Options, Vue } from 'vue-class-component';
 import Button from "@/components/Button.vue";
 import Header from "@/components/Header.vue";
 import Billfold from "@/components/Billfold.vue";
+import Market from "@/components/Market.vue";
 
 @Options({
   components: {
     Button,
     Header,
-    Billfold
+    Billfold,
+    Market
   }
 })
 export default class HomePage extends Vue {}

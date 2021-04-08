@@ -1,6 +1,9 @@
 <template>
     <div>
-        <button class="btn" v-bind:class="{
+        <button
+                class="btn"
+                :disabled="disabled"
+                v-bind:class="{
             btn_primary: type === 'primary',
             btn_secondary: type === 'secondary',
             btn_big: type === 'big'
