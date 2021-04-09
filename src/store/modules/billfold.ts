@@ -33,7 +33,25 @@ const mutations = {
 
     showError(state: BillfoldStateInterface, text: string) {
         state.error = text;
+    },
+
+    closeError(state: BillfoldStateInterface) {
+        state.error = null;
     }
 }
 
-export {state, mutations};
+const actions = {
+    increaseCoin({commit}: any): void {
+        commit('increaseCoin')
+    },
+
+    changeCheckbox({commit}: any): void {
+        commit('changeCheckbox')
+    },
+
+    closeError({commit}: any): void {
+        commit('closeError');
+    }
+}
+
+export {state, mutations, actions};

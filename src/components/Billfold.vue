@@ -52,10 +52,10 @@
         },
         methods: {
             increaseCoin() {
-                this.$store.commit('increaseCoin');
+                this.$store.dispatch('increaseCoin');
             },
             changeCheckbox() {
-                this.$store.commit('changeCheckbox');
+                this.$store.dispatch('changeCheckbox');
             }
         }
     })
