@@ -3,7 +3,7 @@
         <h2 class="section__title">Склад</h2>
         <div class="stock__body">
             <div class="stock__card" v-for="item in stock">
-                <h3 class="stock__card__title">{{ item.name }}</h3>
+                <h3 class="stock__card__title">{{ item.title }}</h3>
                 <span class="stock__card__amount">
                     Стоимость: <strong>{{ item.amountPurchase }} монет</strong>
                 </span>
