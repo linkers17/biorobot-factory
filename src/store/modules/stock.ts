@@ -72,6 +72,21 @@ const mutations = {
             }
             return goods;
         });
+    },
+
+    resetProd(state: StockStateInterface[]) {
+        state = state.map(goods => {
+           goods.count += goods.inProduction;
+           goods.inProduction = 0;
+           return goods;
+        });
+    },
+
+    createRobot(state: StockStateInterface[]) {
+        state = state.map(goods => {
+            goods.inProduction = 0;
+            return goods;
+        });
     }
 }
 

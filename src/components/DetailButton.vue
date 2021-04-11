@@ -46,6 +46,12 @@
         &:hover {
             border-color: $primaryHoverColor;
         }
+
+        &:disabled {
+            &:hover {
+                border-color: transparent;
+            }
+        }
     }
 </style>
 
@@ -86,6 +92,19 @@
 
                 path {
                     fill: #4C5865;
+                }
+            }
+
+            &:hover {
+                svg {
+
+                    circle {
+                        stroke: #4C5865;
+                    }
+
+                    path {
+                        fill: #4C5865;
+                    }
                 }
             }
         }

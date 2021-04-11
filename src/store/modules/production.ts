@@ -88,6 +88,10 @@ const mutations = {
 
     closeMessage(state: ProductionStateInterface) {
         state.message = null;
+    },
+
+    reset(state: ProductionStateInterface) {
+        state.stage = false;
     }
 };
 
@@ -124,13 +128,27 @@ const actions = {
         }
     },
 
-    createRobot({commit, state}: any) {
+    createRobot({commit, state}: any): void {
         commit('createRobot');
+        commit('stock/createRobot', null, {root: true});
         commit('expense', state.amount, {root: true});
     },
 
-    closeMessage({commit}: any) {
+    closeMessage({commit}: any): void {
         commit('closeMessage');
+    },
+
+    reset({commit, rootState}: any): void {
+        const details = rootState.stock;
+
+        commit('stock/resetProd', null, {root: true});
+        details.forEach((detail: StockStateInterface) => {
+            commit('transferDetail', {
+                detail: detail.name,
+                countInStock: detail.count,
+                countInProd: detail.inProduction
+            });
+        });
     }
 };
 

@@ -115,8 +115,51 @@
                 const biomechanismCount = biomechanism.filter(t => t === 'ready').length;
                 const processorCount = processor.filter(t => t === 'ready').length;
                 const heartCount = heart.filter(t => t === 'ready').length;
+                const biomechanismNeedCount = biomechanism.length - biomechanismCount;
+                const processorNeedCount = processor.length - processorCount;
+                const heartNeedCount = heart.length - heartCount;
+
                 let message = 'Не хватает';
-                let flag = false;
+
+                let biomechanismText = '';
+                let processorText = '';
+                let heartText = '';
+
+                switch (biomechanismNeedCount) {
+                    case 0:
+                        biomechanismText = '';
+                        break;
+                    case 1:
+                        biomechanismText = 'биомеханизма';
+                        break;
+                    default:
+                        biomechanismText = `${biomechanismNeedCount} биомеханизмов`;
+                        break;
+                }
+
+                switch (processorNeedCount) {
+                    case 0:
+                        processorText = '';
+                        break;
+                    case 1:
+                        processorText = 'процессора';
+                        break;
+                    default:
+                        processorText = `${processorNeedCount} процессоров`;
+                        break;
+                }
+
+                switch (heartNeedCount) {
+                    case 0:
+                        heartText = '';
+                        break;
+                    case 1:
+                        heartText = 'души';
+                        break;
+                    default:
+                        heartText = `${heartNeedCount} душ`;
+                        break;
+                }
 
                 // Если не хватает денег
                 if (money < amount) {
@@ -124,17 +167,35 @@
                     if (!biomechanismCount && !processorCount && !heartCount) {
                         return message + ' биомеханизмов, процессоров, души и денег';
                     }
+                    // но всё добавлено
+                    if (!biomechanismNeedCount && !processorNeedCount && !heartNeedCount) {
+                        return message + ' денег';
+                    }
+                    // но какой-либо детали не хватает
+                    return `${message} ${biomechanismText}${biomechanismText ? ',' : ''} ${processorText}${processorText ? ',' : ''} ${heartText} и денег`.replace(/,\s+и\s/, ' и ');
+                } else {
+                    // Если есть деньги, но ничего не добавлено
+                    if (!biomechanismCount && !processorCount && !heartCount) {
+                        return message + ' биомеханизмов, процессоров и души'
+                    }
+                    // Если хватает и деталей и денег
+                    if (!biomechanismNeedCount && !processorNeedCount && !heartNeedCount) {
+                        return 'Можно приступать к производству биоробота';
+                    }
+                    // Если есть деньги, но какой-либо детали не хватает
+                    return `${message} ${biomechanismText}${processorText && biomechanismText ? !heartText ? ' и' : ',' : biomechanismText && heartText ? ' и' : ''} ${processorText}${heartText && processorText ? ' и' : ''} ${heartText}`;
                 }
-                return message;
             }
         },
         methods: {
             changeType(value) {
                 this.$store.dispatch('production/changeType', value);
+                this.$store.dispatch('production/reset');
             },
 
             changeGender(value) {
                 this.$store.dispatch('production/changeGender', value);
+                this.$store.dispatch('production/reset');
             },
 
             transferDetail({detail, status}) {
