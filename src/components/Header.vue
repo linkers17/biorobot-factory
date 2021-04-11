@@ -12,13 +12,14 @@
                     <circle r="4.5" transform="matrix(-1 0 0 1 73.5 23.5)" fill="#FF7F22"/>
                 </svg>
             </router-link>
-            <router-link to="/#production" class="header__link-navigate"> <!-- TODO - потом заменить адрес на объект -->
+            <a href="/#production" class="header__link-navigate">
                 <Button
                     v-bind:text="'Произвести биоробота'"
                     v-bind:type="'big'"
+                    v-bind:action="''"
                     v-bind:disabled="false"
                 ></Button>
-            </router-link>
+            </a>
         </div>
         <div class="header__body">
             <div class="header__title">
