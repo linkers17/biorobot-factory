@@ -57,7 +57,9 @@
                     <Button
                             v-bind:text="`Произвести за ${production.amount} монет`"
                             v-bind:type="'big'"
-                            v-bind:disabled="money < production.amount || !production.stage"
+                            v-bind:action="'createRobot'"
+                            v-bind:disabled="money < production.amount || production.stage !== true"
+                            @createRobot="createRobot"
                     ></Button>
                 </div>
                 <div class="production__create__details">
@@ -136,9 +138,11 @@
             },
 
             transferDetail({detail, status}) {
-                console.log('detail', detail);
-                console.log('status', status);
                 this.$store.dispatch('production/transferDetail', {detail, status});
+            },
+
+            createRobot() {
+                this.$store.dispatch('production/createRobot');
             }
         }
     })

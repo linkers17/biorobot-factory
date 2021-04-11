@@ -6,12 +6,19 @@
     <Stock></Stock>
     <Production></Production>
     <Modal
-      v-if="errorBillfold"
-      v-bind:title="'Количество монет ограничено'"
-      v-bind:text="errorBillfold"
-      v-bind:img="'./img/modal_coin.png'"
-      v-bind:action="'closeModal'"
-      @closeModal="closeModal"
+        v-if="errorBillfold"
+        v-bind:title="'Количество монет ограничено'"
+        v-bind:text="errorBillfold"
+        v-bind:img="'./img/modal_coin.png'"
+        v-bind:action="'closeError'"
+        @closeError="closeError"
+    ></Modal>
+    <Modal
+        v-if="messageProduction"
+        v-bind:title="'Биоробот произведен'"
+        v-bind:text="messageProduction"
+        v-bind:action="'closeMessage'"
+        @closeMessage="closeMessage"
     ></Modal>
   </div>
 </template>
@@ -38,10 +45,14 @@ import Modal from "@/components/Modal.vue";
   },
   computed: {
     errorBillfold() {return this.$store.state.billfold.error},
+    messageProduction() {return this.$store.state.production.message}
   },
   methods: {
-    closeModal() {
+    closeError() {
       this.$store.dispatch('closeError');
+    },
+    closeMessage() {
+      this.$store.dispatch('production/closeMessage');
     }
   }
 })

@@ -76,6 +76,18 @@ const mutations = {
         } else {
             state.stage = false;
         }
+    },
+
+    createRobot(state: ProductionStateInterface) {
+        state.stage = 'ready';
+        state.message = 'Поздравляем!\nВы произвели биоробота';
+        state.biomechanism = [false, false, false, false];
+        state.processor = [false, false, false, false];
+        state.heart = [false];
+    },
+
+    closeMessage(state: ProductionStateInterface) {
+        state.message = null;
     }
 };
 
@@ -110,6 +122,15 @@ const actions = {
             });
             return;
         }
+    },
+
+    createRobot({commit, state}: any) {
+        commit('createRobot');
+        commit('expense', state.amount, {root: true});
+    },
+
+    closeMessage({commit}: any) {
+        commit('closeMessage');
     }
 };
 
