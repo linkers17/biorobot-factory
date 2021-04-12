@@ -93,7 +93,7 @@
             padding: 0;
             border: none;
             border-bottom: 1px solid $primaryColor;
-            transition: 0.3s;
+            transition: $trs;
             margin-right: 2rem;
 
             &:hover {

@@ -64,7 +64,7 @@
             height: 24px;
             width: 24px;
             border: 2px solid $darkTextColor;
-            transition: 0.3s;
+            transition: $trs;
         }
 
         &__input {
@@ -95,7 +95,7 @@
             width: 20px;
             height: 20px;
             opacity: 0;
-            transition: 0.3s;
+            transition: $trs;
         }
     }
 </style>

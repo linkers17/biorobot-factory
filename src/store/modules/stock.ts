@@ -36,7 +36,7 @@ const state: StockStateInterface[] = [
 ];
 
 const mutations = {
-    buy(state: StockStateInterface[], id: number) {
+    buy(state: StockStateInterface[], id: number): void {
         state = state.map(goods => {
             if (goods.id === id) {
                 goods.count += 1;
@@ -45,7 +45,7 @@ const mutations = {
         });
     },
 
-    sell(state: StockStateInterface[], id: number) {
+    sell(state: StockStateInterface[], id: number): void {
         state = state.map(goods => {
             if (goods.id === id) {
                 goods.count -= 1;
@@ -54,7 +54,7 @@ const mutations = {
         });
     },
 
-    inProduction(state: StockStateInterface[], detail: string) {
+    inProduction(state: StockStateInterface[], detail: string): void {
         state = state.map(goods => {
             if (goods.name === detail) {
                 goods.count -= 1;
@@ -64,7 +64,7 @@ const mutations = {
         });
     },
 
-    inStock(state: StockStateInterface[], detail: string) {
+    inStock(state: StockStateInterface[], detail: string): void {
         state = state.map(goods => {
             if (goods.name === detail) {
                 goods.count += 1;
@@ -74,7 +74,7 @@ const mutations = {
         });
     },
 
-    resetProd(state: StockStateInterface[]) {
+    resetProd(state: StockStateInterface[]): void {
         state = state.map(goods => {
            goods.count += goods.inProduction;
            goods.inProduction = 0;
@@ -82,7 +82,7 @@ const mutations = {
         });
     },
 
-    createRobot(state: StockStateInterface[]) {
+    createRobot(state: StockStateInterface[]): void {
         state = state.map(goods => {
             goods.inProduction = 0;
             return goods;

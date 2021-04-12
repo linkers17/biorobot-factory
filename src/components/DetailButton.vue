@@ -33,7 +33,7 @@
         background-color: #333940;
         margin-right: 1rem;
         border-radius: 4px;
-        transition: 0.3s;
+        transition: $trs;
 
         &:last-child {
             margin-right: 0;
@@ -59,7 +59,7 @@
     .detail-btn {
         svg {
             fill: transparent;
-            transition: 0.3s;
+            transition: $trs;
 
             circle {
                 stroke: #fff;

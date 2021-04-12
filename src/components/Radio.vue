@@ -65,7 +65,7 @@
             width: 24px;
             border: 2px solid $darkTextColor;
             border-radius: 50%;
-            transition: 0.3s;
+            transition: $trs;
         }
 
         &__input {
@@ -96,7 +96,7 @@
             background-color: $primaryColor;
             border-radius: 50%;
             opacity: 0;
-            transition: 0.3s;
+            transition: $trs;
         }
 
         &__label {

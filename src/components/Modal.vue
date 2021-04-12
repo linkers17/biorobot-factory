@@ -87,7 +87,7 @@
 
             &-icon {
                 fill: $primaryColor;
-                transition: 0.3s;
+                transition: $trs;
             }
         }
 

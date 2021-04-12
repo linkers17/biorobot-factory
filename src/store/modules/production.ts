@@ -26,15 +26,15 @@ const state: ProductionStateInterface = {
 };
 
 const mutations = {
-    changeType(state: ProductionStateInterface, type: string) {
+    changeType(state: ProductionStateInterface, type: string): void {
         state.type = type;
     },
 
-    changeGender(state: ProductionStateInterface, gender: string) {
+    changeGender(state: ProductionStateInterface, gender: string): void {
         state.gender = gender;
     },
 
-    changeDetails(state: ProductionStateInterface, {detail, action}: ChangeDetailsInterface) {
+    changeDetails(state: ProductionStateInterface, {detail, action}: ChangeDetailsInterface): void {
         // Покупка
         if (action === 'buy') {
             if (!state[detail].includes(true)) {
@@ -78,19 +78,19 @@ const mutations = {
         }
     },
 
-    createRobot(state: ProductionStateInterface) {
+    createRobot(state: ProductionStateInterface): void {
         state.stage = 'ready';
-        state.message = 'Поздравляем!\nВы произвели биоробота';
+        state.message = `Поздравляем! Вы произвели биоробота`;
         state.biomechanism = [false, false, false, false];
         state.processor = [false, false, false, false];
         state.heart = [false];
     },
 
-    closeMessage(state: ProductionStateInterface) {
+    closeMessage(state: ProductionStateInterface): void {
         state.message = null;
     },
 
-    reset(state: ProductionStateInterface) {
+    reset(state: ProductionStateInterface): void {
         state.stage = false;
     }
 };
@@ -104,6 +104,7 @@ const actions = {
         commit('changeGender', gender);
     },
 
+    // Перемещение деталей в производство и на склад
     transferDetail({commit, rootState}: any, {detail, status}: any): void {
         // Отправка в производство
         const goods = rootState.stock.find((goods: StockStateInterface) => goods.name === detail);
@@ -117,6 +118,7 @@ const actions = {
             return;
         }
 
+        // Отправка на склад
         if (status === 'ready') {
             commit('stock/inStock', detail, {root: true});
             commit('transferDetail', {

@@ -42,7 +42,7 @@
         border: none;
         border-radius: 60px;
         color: #aaa;
-        transition: 0.3s;
+        transition: $trs;
         font-family: inherit;
         font-size: 1.6rem;
         line-height: 1.5;
@@ -106,7 +106,7 @@
                 padding: 1rem 0;
                 background: $bg-color;
                 border-radius: 60px;
-                transition: 0.3s;
+                transition: $trs;
             }
         }
     }
