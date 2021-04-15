@@ -22,6 +22,11 @@
             </a>
         </div>
         <div class="header__body">
+            <div class="header__body__number">
+                <span class="header__body__number-digit">01</span>
+                <span class="header__body__number-scroll">скролл</span>
+                <img src="@/assets/img/arrow-down.svg" alt="scroll" class="header__body__number-arrow">
+            </div>
             <div class="header__title">
                 <h1 class="title">Фабрика по производству биороботов</h1>
                 <span class="header__subtitle">класса «монитор-кресло»</span>
@@ -69,6 +74,35 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            position: relative;
+
+            &__number {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                position: absolute;
+                left: 0;
+                top: 4.8rem;
+                color: #667380;
+                font-size: 1.2rem;
+                line-height: 2;
+                font-weight: 500;
+
+                &-digit {
+                    display: inline-block;
+                }
+
+                &-scroll {
+                    display: inline-block;
+                    text-transform: uppercase;
+                    transform: rotate(-90deg);
+                    margin: 155px 0 25px -20px;
+                }
+
+                &-arrow {
+                    display: inline-block;
+                }
+            }
         }
 
         &__title {

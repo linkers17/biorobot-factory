@@ -1,12 +1,15 @@
 <template>
     <section class="market section">
+        <span class="section__number">03</span>
         <h2 class="section__title">Рынок комплектующих</h2>
         <div class="market__body">
             <div class="market__card" v-for="item in goods">
-                <div class="market__card__image" v-html="item.img">
-
+                <div class="market__card__image">
+                    <svg :class="`market__card__image-${item.name}`">
+                        <use :xlink:href="`${svgSprite}#${item.name}-ready`"></use>
+                    </svg>
                 </div>
-                <h3 class="market__card__title">{{ item.item }}</h3>
+                <h3 class="market__card__title">{{ item.title }}</h3>
                 <span class="market__card__amount">
                     Стоимость: <strong>{{ item.amountSale }} монет</strong>
                 </span>
@@ -27,19 +30,28 @@
 <script>
     import { Options, Vue } from 'vue-class-component';
     import Button from '@/components/Button';
+    import {mapActions, mapState} from "vuex";
+    import svgSprite from '@/assets/img/sprite.svg';
 
     @Options({
+        data() {
+          return {
+              svgSprite
+          }
+        },
         computed: {
-            money() {return this.$store.state.billfold.money},
-            goods() {return this.$store.state.stock}
+            ...mapState({
+                money: state => state.billfold.money,
+                goods: state => state.stock
+            })
         },
         components: {
             Button
         },
         methods: {
-            buy(id) {
-                this.$store.dispatch('stock/buy', id);
-            }
+            ...mapActions('stock', {
+                buy: 'buy'
+            })
         }
     })
     export default class Market extends Vue {}
@@ -97,14 +109,21 @@
         svg {
             fill: transparent;
             filter: drop-shadow(0px 8px 20px $primaryColor);
+        }
 
-            circle {
-                stroke: $primaryColor;
-            }
+        &-biomechanism {
+            height: 67px;
+            width: 101px;
+        }
 
-            path {
-                fill: $primaryColor;
-            }
+        &-processor {
+            height: 80px;
+            width: 80px;
+        }
+
+        &-heart {
+            height: 88px;
+            width: 88px;
         }
     }
 </style>

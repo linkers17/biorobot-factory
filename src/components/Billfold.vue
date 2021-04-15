@@ -1,5 +1,6 @@
 <template>
     <section class="billfold section">
+        <span class="section__number">02</span>
         <h2 class="section__title">Кошелёк криптовалют</h2>
         <div class="money billfold__money">
             <Coin v-if="money"></Coin>
@@ -23,6 +24,7 @@
     import { Options, Vue } from 'vue-class-component';
     import Checkbox from "@/components/Checkbox.vue";
     import Coin from "@/components/Coin.vue";
+    import {mapActions, mapState} from "vuex";
 
     @Options({
         components: {
@@ -30,33 +32,23 @@
             Coin
         },
         computed: {
-            money() {return this.$store.state.billfold.money},
-            checkbox() {return this.$store.state.billfold.checkbox},
+            ...mapState('billfold', {
+                money: state => state.money,
+                checkbox: state => state.checkbox
+            }),
             text() {
-                if (this.money >= 5 && this.money <= 20) {
-                    return 'монет';
+                function declOfNum(count, titles) {
+                    const cases = [2, 0, 1, 1, 1, 2];
+                    return titles[(count % 100 > 4 && count % 100 < 20) ? 2 : cases[count % 10 < 5 ? count % 10 : 5]];
                 }
-                switch (this.money % 10) {
-                    case 1:
-                        return 'монета';
-                    case 2:
-                        return 'монеты';
-                    case 3:
-                        return 'монеты';
-                    case 4:
-                        return 'монеты';
-                    default:
-                        return 'монет';
-                }
+                return declOfNum(this.money, ['монета', 'монеты', 'монет']);
             }
         },
         methods: {
-            increaseCoin() {
-                this.$store.dispatch('increaseCoin');
-            },
-            changeCheckbox() {
-                this.$store.dispatch('changeCheckbox');
-            }
+            ...mapActions('billfold', [
+                'increaseCoin',
+                'changeCheckbox'
+            ])
         }
     })
     export default class Billfold extends Vue {}

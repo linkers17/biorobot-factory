@@ -7,23 +7,23 @@
     <Production></Production>
     <Modal
         v-if="errorBillfold"
-        v-bind:title="'Количество монет ограничено'"
-        v-bind:text="errorBillfold"
+        title="Количество монет ограничено"
+        text="Вы не можете нацыганить более 100 монет biorobo"
         v-bind:img="'./img/modal_coin.png'"
         v-bind:action="'closeError'"
         @closeError="closeError"
     ></Modal>
     <Modal
         v-if="messageProduction"
-        v-bind:title="'Биоробот произведен'"
-        v-bind:text="messageProduction"
+        title="Биоробот произведен"
+        text="Поздравляем! Вы произвели биоробота"
         v-bind:action="'closeMessage'"
         @closeMessage="closeMessage"
     ></Modal>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { Options, Vue } from 'vue-class-component';
 import Button from "@/components/Button.vue";
 import Header from "@/components/Header.vue";
@@ -32,6 +32,7 @@ import Market from "@/components/Market.vue";
 import Stock from "@/components/Stock.vue";
 import Production from "@/components/Production.vue";
 import Modal from "@/components/Modal.vue";
+import {mapActions, mapState} from "vuex";
 
 @Options({
   components: {
@@ -44,16 +45,16 @@ import Modal from "@/components/Modal.vue";
     Modal
   },
   computed: {
-    errorBillfold() {return this.$store.state.billfold.error},
-    messageProduction() {return this.$store.state.production.message}
+    ...mapState({
+      errorBillfold: state => state.billfold.error,
+      messageProduction: state => state.production.message
+    })
   },
   methods: {
-    closeError() {
-      this.$store.dispatch('closeError');
-    },
-    closeMessage() {
-      this.$store.dispatch('production/closeMessage');
-    }
+    ...mapActions({
+      closeError: 'billfold/closeError',
+      closeMessage: 'production/closeMessage'
+    })
   }
 })
 export default class HomePage extends Vue {}

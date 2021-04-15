@@ -11,10 +11,13 @@
 
 <script>
     import { Options, Vue } from 'vue-class-component';
+    import {mapState} from "vuex";
 
     @Options({
         computed: {
-            money() {return this.$store.state.billfold.money}
+            ...mapState('billfold', {
+                money: state => state.money
+            })
         }
     })
     export default class Coin extends Vue {}

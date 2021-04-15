@@ -1,19 +1,27 @@
 <template>
     <button
         class="detail-btn"
-        v-html="img"
         :disabled="!status"
         v-bind:class="{active: status === 'ready'}"
         @click="$emit('transferDetail', {detail, status})"
-    ></button>
+    >
+        <svg :class="`detail-btn__icon-${detail}`">
+            <use :xlink:href="`${svgSprite}#${detail}-${status}`"></use>
+        </svg>
+    </button>
 </template>
 
 <script>
     import { Options, Vue } from 'vue-class-component';
+    import svgSprite from '@/assets/img/sprite.svg';
 
     @Options({
+        data() {
+            return {
+                svgSprite
+            }
+        },
         props: {
-            img: String,
             status: Boolean | String,
             detail: String,
             id: Number
@@ -42,16 +50,6 @@
         &.active {
             border-color: $primaryColor;
         }
-
-        &:hover {
-            border-color: $primaryHoverColor;
-        }
-
-        &:disabled {
-            &:hover {
-                border-color: transparent;
-            }
-        }
     }
 </style>
 
@@ -60,65 +58,22 @@
         svg {
             fill: transparent;
             transition: $trs;
-
-            circle {
-                stroke: #fff;
-            }
-
-            path {
-                fill: #fff;
-            }
         }
 
-        &.active {
-            svg {
-
-                circle {
-                    stroke: $primaryColor;
-                }
-
-                path {
-                    fill: $primaryColor;
-                }
-            }
-        }
-
-        &:disabled {
-            svg {
-
-                circle {
-                    stroke: #4C5865;
-                }
-
-                path {
-                    fill: #4C5865;
-                }
+        &__icon {
+            &-biomechanism {
+                height: 24px;
+                width: 36px;
             }
 
-            &:hover {
-                svg {
-
-                    circle {
-                        stroke: #4C5865;
-                    }
-
-                    path {
-                        fill: #4C5865;
-                    }
-                }
+            &-processor {
+                height: 24px;
+                width: 24px;
             }
-        }
 
-        &:hover {
-            svg {
-
-                circle {
-                    stroke: $primaryHoverColor;
-                }
-
-                path {
-                    fill: $primaryHoverColor;
-                }
+            &-heart {
+                height: 32px;
+                width: 32px;
             }
         }
     }

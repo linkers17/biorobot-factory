@@ -1,5 +1,7 @@
 import {BillfoldStateInterface} from "@/interfaces/billfoldState.interface";
 
+const namespaced = true;
+
 const state: BillfoldStateInterface = {
     money: 0,
     error: null,
@@ -9,7 +11,7 @@ const state: BillfoldStateInterface = {
 const mutations = {
     increaseCoin(state: BillfoldStateInterface): void {
         if ((state.checkbox && state.money >= 96) || ((!state.checkbox && state.money === 100))) {
-            state.error = 'Вы не можете нацыганить более 100 монет biorobo';
+            state.error = 'more_than_100';
         } else {
             state.error = null;
             if (state.checkbox) {
@@ -54,4 +56,4 @@ const actions = {
     }
 }
 
-export {state, mutations, actions};
+export {namespaced, state, mutations, actions};

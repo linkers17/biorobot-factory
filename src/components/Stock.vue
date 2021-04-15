@@ -1,5 +1,6 @@
 <template>
     <section class="stock section">
+        <span class="section__number">04</span>
         <h2 class="section__title">Склад</h2>
         <div class="stock__body">
             <div class="stock__card" v-for="item in stock">
@@ -15,7 +16,7 @@
                         v-bind:disabled="item.count <= 0"
                         v-bind:id="item.id"
                         v-bind:action="'sell'"
-                        @sell="sell"
+                        @sell="sell({id: item.id, money})"
                 ></Button>
             </div>
         </div>
@@ -25,19 +26,22 @@
 <script>
     import { Options, Vue } from 'vue-class-component';
     import Button from '@/components/Button';
+    import {mapActions, mapState} from "vuex";
 
     @Options({
         computed: {
-            money() {return this.$store.state.billfold.money},
-            stock() {return this.$store.state.stock}
+            ...mapState({
+                money: state => state.billfold.money,
+                stock: state => state.stock
+            })
         },
         components: {
             Button
         },
         methods: {
-            sell(id) {
-                this.$store.dispatch('stock/sell', {id, money: this.money});
-            }
+            ...mapActions('stock', {
+                sell: 'sell'
+            })
         }
     })
     export default class Stock extends Vue {}

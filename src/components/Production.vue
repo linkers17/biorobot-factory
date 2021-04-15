@@ -1,5 +1,6 @@
 <template>
     <section class="production section" id="production">
+        <span class="section__number">05</span>
         <h2 class="section__title">Производство</h2>
         <div class="production__body">
             <div class="production__create">
@@ -69,7 +70,6 @@
                     >
                         <DetailButton
                             v-for="status in production[item.name]"
-                            v-bind:img="item.img"
                             v-bind:status="status"
                             v-bind:detail="item.name"
                             @transferDetail="transferDetail"
@@ -95,6 +95,7 @@
     import Radio from '@/components/Radio';
     import Button from '@/components/Button';
     import DetailButton from '@/components/DetailButton';
+    import {mapActions, mapState} from "vuex";
 
     @Options({
         components: {
@@ -103,15 +104,14 @@
             DetailButton
         },
         computed: {
-            stock() {return this.$store.state.stock},
-            production() {return this.$store.state.production},
-            money() {return this.$store.state.billfold.money},
+            ...mapState({
+                stock: state => state.stock,
+                production: state => state.production,
+                money: state => state.billfold.money
+            }),
             message() {
                 const money = this.money;
-                const amount = this.production.amount;
-                const biomechanism = this.production.biomechanism;
-                const processor = this.production.processor;
-                const heart = this.production.heart;
+                const { amount, biomechanism, processor, heart } = this.production;
                 const biomechanismCount = biomechanism.filter(t => t === 'ready').length;
                 const processorCount = processor.filter(t => t === 'ready').length;
                 const heartCount = heart.filter(t => t === 'ready').length;
@@ -125,40 +125,21 @@
                 let processorText = '';
                 let heartText = '';
 
-                switch (biomechanismNeedCount) {
-                    case 0:
-                        biomechanismText = '';
-                        break;
-                    case 1:
-                        biomechanismText = 'биомеханизма';
-                        break;
-                    default:
-                        biomechanismText = `${biomechanismNeedCount} биомеханизмов`;
-                        break;
+                function  declOfNum(count, titles) {
+                    const cases = [2, 0, 1, 1, 1, 2];
+                    return `${count > 1 ? `${count} ` : ''}${titles[(count % 100 > 4 && count % 100 < 20) ? 2 : cases[(count % 10 < 5) ? count % 10 : 5]]}`;
                 }
 
-                switch (processorNeedCount) {
-                    case 0:
-                        processorText = '';
-                        break;
-                    case 1:
-                        processorText = 'процессора';
-                        break;
-                    default:
-                        processorText = `${processorNeedCount} процессоров`;
-                        break;
+                if (biomechanismNeedCount) {
+                    biomechanismText = declOfNum(biomechanismNeedCount, ['биомеханизма', 'биомеханизмов', 'биомеханизмов']);
                 }
 
-                switch (heartNeedCount) {
-                    case 0:
-                        heartText = '';
-                        break;
-                    case 1:
-                        heartText = 'души';
-                        break;
-                    default:
-                        heartText = `${heartNeedCount} душ`;
-                        break;
+                if (processorNeedCount) {
+                    processorText = declOfNum(processorNeedCount, ['процессора', 'процессоров', 'процессоров']);
+                }
+
+                if (heartNeedCount) {
+                    heartText = declOfNum(heartNeedCount, ['души', 'душ', 'душ']);
                 }
 
                 // Если не хватает денег
@@ -189,22 +170,22 @@
         },
         methods: {
             changeType(value) {
-                this.$store.dispatch('production/changeType', value);
-                this.$store.dispatch('production/reset');
+                this.changeTypeAction(value);
+                this.resetAction();
             },
 
             changeGender(value) {
-                this.$store.dispatch('production/changeGender', value);
-                this.$store.dispatch('production/reset');
+                this.changeGenderAction(value);
+                this.resetAction();
             },
 
-            transferDetail({detail, status}) {
-                this.$store.dispatch('production/transferDetail', {detail, status});
-            },
-
-            createRobot() {
-                this.$store.dispatch('production/createRobot');
-            }
+            ...mapActions('production', {
+                changeTypeAction: 'changeType',
+                changeGenderAction: 'changeGender',
+                resetAction: 'reset',
+                transferDetail: 'transferDetail',
+                createRobot: 'createRobot'
+            })
         }
     })
     export default class Production extends Vue {}

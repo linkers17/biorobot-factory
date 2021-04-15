@@ -6,5 +6,4 @@ export interface StockStateInterface {
     amountSale: number;
     amountPurchase: number;
     inProduction: number;
-    img: string;
 }

@@ -80,7 +80,7 @@ const mutations = {
 
     createRobot(state: ProductionStateInterface): void {
         state.stage = 'ready';
-        state.message = `Поздравляем! Вы произвели биоробота`;
+        state.message = 'biorobo_complete';
         state.biomechanism = [false, false, false, false];
         state.processor = [false, false, false, false];
         state.heart = [false];
@@ -133,7 +133,7 @@ const actions = {
     createRobot({commit, state}: any): void {
         commit('createRobot');
         commit('stock/createRobot', null, {root: true});
-        commit('expense', state.amount, {root: true});
+        commit('billfold/expense', state.amount, {root: true});
     },
 
     closeMessage({commit}: any): void {
